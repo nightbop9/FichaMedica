@@ -22,7 +22,17 @@ import com.api.fichamed.repository.FichaMedRepository;
 public class FIchamedController {
     @Autowired
     FichaMedRepository repository;
+    
+    public static boolean isAllNullOrBlank(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                return false;  // Retorna false se algum valor não for null ou não estiver em branco
+            }
+        }
+        return true;  // Retorna true se todos os valores forem null ou estiverem em branco
+    }
 
+    
     @GetMapping
     public String mensagem(){
         return "Api Ficha Médica está funcionando! Verifique e este utilizando os endpoints.";
@@ -39,12 +49,13 @@ public class FIchamedController {
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado com ID: " + id));
     }
-    
+
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody FichamedDTO user){
     	FichamedModel paciente = new FichamedModel(user);
-    	if((paciente.getNome() == null){
-    		
+    	boolean resultado = isAllNullOrBlank(paciente.getNome(), paciente.getTelefone(), paciente.getGenero(), paciente.getNascimento(), paciente.getCpf());
+    	if(resultado) {
+    		.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Preencha todos os campos obrgatórios."));
     	}
     }
    
