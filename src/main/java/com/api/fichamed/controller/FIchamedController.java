@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,13 +16,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.api.fichamed.dto.FichamedDTO;
 import com.api.fichamed.model.FichamedModel;
-import com.api.fichamed.repository.FichaMedRepository;
+import com.api.fichamed.repository.FichamedRepository;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("paciente")
 public class FIchamedController {
     @Autowired
-    FichaMedRepository repository;
+    FichamedRepository repository;
     
     public static boolean isAllNullOrBlank(String... values) {
         for (String value : values) {
@@ -50,13 +51,32 @@ public class FIchamedController {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado com ID: " + id));
     }
 
+
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody FichamedDTO user){
     	FichamedModel paciente = new FichamedModel(user);
-    	boolean resultado = isAllNullOrBlank(paciente.getNome(), paciente.getTelefone(), paciente.getGenero(), paciente.getNascimento(), paciente.getCpf());
-    	if(resultado) {
-    		.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Preencha todos os campos obrgatórios."));
+    	boolean resultado = isAllNullOrBlank(paciente.getNome(), paciente.getTelefone(), paciente.getCpf());
+
+    	if(paciente.getNome() == null || paciente.getNome().isBlank() || paciente.getTelefone() == null || paciente.getTelefone().isBlank() || paciente.getCpf() == null || paciente.getCpf().isBlank()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Preencha todos os campos para cadastrar obrigatórios.");
     	}
+        repository.save(paciente); 
+    	return ResponseEntity.status(201).body("Paciente cadastrado com sucesso.");
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<?> atualizar(@RequestBody FichamedDTO user, @PathVariable Long id){
+        FichamedModel paciente = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro ao atualizar: paciente não encontrado com ID: " + id));
+        if(paciente.getNome() == null || paciente.getNome().isBlank() || paciente.getTelefone() == null || paciente.getTelefone().isBlank() || paciente.getCpf() == null || paciente.getCpf().isBlank();
+    	}
+        else{
+        paciente.setNome(user.nome());
+        paciente.setEmail(user.email());
+        paciente.setTelefone(user.telefone());
+        paciente.setCpf(user.cpf());
+        repository.save(paciente);
+        return ResponseEntity.status(200).body("Paciente atualizado com sucesso.");
+    }
     }
    
 }

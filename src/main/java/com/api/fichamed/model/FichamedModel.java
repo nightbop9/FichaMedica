@@ -1,8 +1,7 @@
 package com.api.fichamed.model;
 import com.api.fichamed.dto.FichamedDTO;
 
-import java.time.LocalDate;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,22 +17,15 @@ public class FichamedModel {
     private String nome;
     private String email;
     private String telefone;
-    private String genero;
-    private LocalDate nascimento;
+	@Column(name="cpf", length = 11)
     private String cpf;
-    private String medicamentos;
-    private String alergias;
     private String imglink;
-    
+    public FichamedModel(){}
     public FichamedModel(FichamedDTO paciente) {
         this.nome = paciente.nome();
         this.email = paciente.email();
         this.telefone = paciente.telefone();
-        this.genero = paciente.genero();
-        this.nascimento = paciente.nascimento();
         this.cpf = paciente.cpf();
-        this.medicamentos = paciente.medicamentos();
-        this.alergias = paciente.alergias();
         this.imglink = paciente.imglink();
     }
 
@@ -41,9 +33,9 @@ public class FichamedModel {
 		return id;
 	}
 
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -69,44 +61,12 @@ public class FichamedModel {
 		this.telefone = telefone;
 	}
 
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public LocalDate getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(LocalDate nascimento) {
-		this.nascimento = nascimento;
-	}
-
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-
-	public String getMedicamentos() {
-		return medicamentos;
-	}
-
-	public void setMedicamentos(String medicamentos) {
-		this.medicamentos = medicamentos;
-	}
-
-	public String getAlergias() {
-		return alergias;
-	}
-
-	public void setAlergias(String alergias) {
-		this.alergias = alergias;
 	}
 
 	public String getImglink() {
