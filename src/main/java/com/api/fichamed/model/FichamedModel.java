@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "paciente")
 public class FichamedModel {
@@ -14,19 +15,24 @@ public class FichamedModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	@NotBlank(message = "O campo 'nome' é obrigatório.")
     private String nome;
-    private String email;
+	@Column(unique = true)
+	private String email;
+	@NotBlank(message = "O campo 'telefone' é obrigatório.")
     private String telefone;
-	@Column(name="cpf", length = 11)
+	@Column(unique = true)
+	@NotBlank(message = "O campo cpf é obrigatório.")
     private String cpf;
-    private String imglink;
-    public FichamedModel(){}
+	private String nomeImagem;
+	public FichamedModel(){}
     public FichamedModel(FichamedDTO paciente) {
+		this.id = paciente.id();
         this.nome = paciente.nome();
         this.email = paciente.email();
         this.telefone = paciente.telefone();
         this.cpf = paciente.cpf();
-        this.imglink = paciente.imglink();
+        this.nomeImagem = paciente.nomeImagem();
     }
 
 	public Long getId() {
@@ -69,13 +75,12 @@ public class FichamedModel {
 		this.cpf = cpf;
 	}
 
-	public String getImglink() {
-		return imglink;
+	public String getNomeImagem() {
+		return nomeImagem;
 	}
-
-	public void setImglink(String imglink) {
-		this.imglink = imglink;
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
 	}
-
+	
     
 }

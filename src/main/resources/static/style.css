@@ -1,0 +1,71 @@
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}
+
+header {    
+    padding: 30px;
+    color: #7E7A7A;
+}
+header .cabecalho {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.pacienteForm{
+    background-color: gray;
+    width: 1200px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+
+.pacienteForm .dados{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+
+
+.pacienteForm .dadosinferior{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 4%;
+    padding-right: 4.5%;
+}
+
+.pacienteForm .dadosinferior .dadosimg{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pacienteForm .btn{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+}
+.pacienteForm .btn{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+}
