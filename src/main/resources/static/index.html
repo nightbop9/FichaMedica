@@ -3,45 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <div class="cabecalho">
+    <div class="container">
+        <header class="cabecalho">
             <img src="logo.svg" alt="">
             <h1>Ficha Médica</h1>
-        </div>
-    </header>
+        </header>
+    </div>
 
-    <form id="registerForm" class="pacienteForm" action="paciente/cadastrar" method="POST" enctype="multipart/form-data">
-        <div class="dados">
-            <p>Nome</p>
-            <input type="text" name="nome" required>
-            <p>Email</p>
-            <input type="email" name="email"> 
-            <p>Número</p>
-            <input type="number" name="telefone" required>
-            <p>CPF</p>
-            <input type="number" name="cpf" required>                   
-        </div>
-
-        <div class="dadosinferior">
-            <div class="dadosimg">
-                <p>Imagem</p>
-                    <input type="file" name="file" required>   
-            </div>
-
-            <div class="btn">
-                <input type="submit" value="Cadastrar">
-                <input type="reset" value="Limpar">
-            </div>
-    
-        </div>
-    </form>
 
 </body>
 </html>

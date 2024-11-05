@@ -33,7 +33,8 @@ import jakarta.validation.Valid;
 @RequestMapping("paciente")
 public class FichamedController {
 
-	private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
+	//private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
+	private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\imgs\\";
 
 	@Autowired
 	FichamedRepository repository;
