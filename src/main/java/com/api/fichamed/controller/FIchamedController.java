@@ -1,5 +1,6 @@
 package com.api.fichamed.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,8 +35,10 @@ import jakarta.validation.Valid;
 @RequestMapping("paciente")
 public class FichamedController {
 
-	private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
+	//private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
 	//private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\imgs\\";
+	//private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\BC - Claudemir\\Estudo\\ProI";
+	private final String caminhoImagens = "uploads\\";
 
 	@Autowired
 	FichamedRepository repository;
@@ -54,10 +58,16 @@ public class FichamedController {
 	}
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<?> cadastrar(@Valid FichamedDTO user, BindingResult result,
+	public ResponseEntity<?> cadastrar(@Valid @ModelAttribute FichamedDTO user, BindingResult result,
 			@RequestParam("file") MultipartFile arquivo) {
 		FichamedModel paciente = new FichamedModel(user);
-	
+		
+		File imgupload = new File(caminhoImagens);
+		
+		imgupload.mkdir();
+		
+		
+		
 		repository.save(paciente);
 
 		try {
@@ -65,7 +75,7 @@ public class FichamedController {
 				byte[] bytes = arquivo.getBytes();
 				Path caminho = Paths.get(caminhoImagens+String.valueOf(paciente.getId())+arquivo.getOriginalFilename());
 				Files.write(caminho, bytes);
-				
+
 				paciente.setNomeImagem(String.valueOf(paciente.getId())+arquivo.getOriginalFilename());
 			}
 		}catch(IOException e) {

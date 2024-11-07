@@ -23,28 +23,30 @@
 
         <div class="cadastrar">
             <h3>Criar Nova Ficha</h3>
-            <form id="registerForm" class="pacienteForm" action="paciente/cadastrar" method="POST" enctype="multipart/form-data">
+            <form id="registerForm" class="pacienteForm" action="paciente/cadastrar" method="POST"
+                enctype="multipart/form-data">
                 <div class="preencher">
                     <div class="img">
                         <input type="file" id="fileInput" name="file" hidden />
                         <label for="fileInput" class="file-label">
-                            <img id="previewImage" src="images/imgperfil.svg" alt="Imagem de perfil" style="width: 100px; height: 100px;">    
+                            <img id="previewImage" src="images/imgperfil.svg" alt="Imagem de perfil"
+                                style="width: 100px; height: 100px;">
                         </label>
                         <p>Adicionar Imagem</p>
                     </div>
 
                     <div class="informacoes">
                         <label for="nome">Nome:</label>
-						    <input type="text" id="nome" name="nome" required />
-						
-						    <label for="telefone">Telefone:</label>
-						    <input type="tel" id="telefone" name="telefone" required />
-						
-						    <label for="cpf">CPF:</label>
-						    <input type="number" id="cpf" name="cpf" required />
-						
-						    <label for="email">Email:</label>
-						    <input type="email" id="email" name="email" />
+                        <input type="text" id="nome" name="nome" required />
+
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" required />
+
+                        <label for="cpf">CPF:</label>
+                        <input type="number" id="cpf" name="cpf" required />
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" />
                     </div>
                 </div>
 
@@ -53,30 +55,59 @@
                     <button type="reset" id="limpar">Limpar</button>
                 </div>
             </form>
+            <input type="checkbox" name="" id="">
+            <div class="tabela">
+                <div>
+                    <p>Imagem</p>
+
+                    <div class="imagem">b</div>
+                </div>
+                <div>
+                    <p>Nome</p>
+                    <div class="nome">b</div>
+                </div>
+                <div>
+                    <p>Email</p>
+                    <div class="email">b</div>
+                </div>
+                <div>
+                    <p>Telefone</p>
+                    <div class="telefone">b</div>
+                </div>
+                <div>
+                    <p>CPF</p>
+                    <div class="cpf">b</div>
+                </div>
+            </div>
         </div>
+
+
+
+
     </div>
+
 
     <script>
         const fileInput = document.getElementById("fileInput");
         const resetButton = document.getElementById("limpar");
         const preview = document.getElementById("previewImage");
 
-        document.getElementById("fileInput").addEventListener("change", function(event) {
+        document.getElementById("fileInput").addEventListener("change", function (event) {
             const file = event.target.files[0];
             const resetButton = document.getElementById("limpar");
 
             if (file) {
                 const reader = new FileReader();
-                
-                reader.onload = function(e) {
+
+                reader.onload = function (e) {
                     preview.src = e.target.result;
                 };
-                
+
                 reader.readAsDataURL(file);
             }
         });
 
-        resetButton.addEventListener("click", function() {
+        resetButton.addEventListener("click", function () {
             preview.src = "images/imgperfil.svg"; // Caminho para o ícone padrão
         });
     </script>

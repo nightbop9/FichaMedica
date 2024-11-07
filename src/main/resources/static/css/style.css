@@ -188,6 +188,56 @@ body{
     border: 1;
     border-color: #3CB2ED;
 }
+
+.tabela{
+display: flex;
+width: 100%;
+border: 2px solid red;
+height: fit-content;
+justify-content: space-around;
+margin: 5% 0;
+
+}
+
+
+.tabela .imagem {
+    display: flex;
+    flex-direction: column;
+    grid-area: imagem ;
+}
+
+.tabela .nome{
+    display: flex;
+    flex-direction: column;
+    grid-area: nome;
+}
+
+.tabela .email{
+    display: flex;
+    flex-direction: column;
+    grid-area: email;
+}
+
+.tabela .telefone{
+    display: flex;
+    flex-direction: column;
+    grid-area: telefone;
+}
+
+.tabela div{
+    display: flex;
+    flex-direction: column;
+}
+.tabela .cpf{
+    display: flex;
+    flex-direction: column;
+    grid-area: cpf;
+}
+
+
+
+
+
 @media (max-width:360px){
     .cabecalho > h1{
         font-weight: 400;
