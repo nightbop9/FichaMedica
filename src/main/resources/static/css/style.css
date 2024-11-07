@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10% auto;
+    font-family: 'Poppins',sans-serif;
+    width: 100%;
+    height: auto;
+    font-weight: 100;
+    flex-wrap: wrap;
+}
+
+
+.cabecalho{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px
+}
+
+.cabecalho > h1{
+    font-weight: 500;
+    font-size: 60px;
+    color: #7E7A7A;
+}
+.cabecalho > img{
+    width: 25px;
+    height: 25px;
+    margin-top: -25px;
+    margin-right: -15px;
+}
+
+
+
+
+
+.cadastrar{
+    display: flex;
+    align-items: center;
+    width: 70%;
+    flex-wrap: wrap;
+    margin: 5% auto;
+}
+
+.cadastrar h3{
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 300;
+    width: 100%;
+    color: #7E7A7A;
+}
+.cadastrar .pacienteForm {
+    width: 100%;
+}
+
+.cadastrar .pacienteForm .preencher{
+    color: #7E7A7A;
+    width: 100%;
+    height: auto;
+    background-color: #F4F7FB;
+    display: flex;
+    border-radius: 12px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+
+.cadastrar .pacienteForm .img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cadastrar .pacienteForm p{
+    font-weight: 300;
+}
+.file-label {
+    display: inline-block;
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    height: 100px;
+    background-image: url('../images/imgperfil.svg'); /* Caminho para a imagem */
+    background-size: cover;
+    cursor: pointer;
+}
+
+.cadastrar .pacienteForm .informacoes{
+    display: grid;
+    grid-template-areas:
+        "nome telefone"
+        "cpf email"; /* Define duas linhas e duas colunas */
+    grid-template-columns: 1fr 1fr; /* Colunas de largura igual */
+    gap: 10px 30px; /* Espaço entre linhas e colunas */
+    width: 500px;
+    height: auto;
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.cadastrar .pacienteForm .informacoes label {
+    font-size: 15px;
+    color: #7E7A7A;
+    font-weight: 400;
+    margin-bottom: 6px; /* Espaço entre o label e o input */
+    display: block;
+}
+
+.cadastrar .pacienteForm .informacoes label[for="nome"] {
+    grid-area: nome;
+}
+.cadastrar .pacienteForm .informacoes input#nome {
+    grid-area: nome;
+    margin-top: 20px; /* Para criar espaçamento entre label e input */
+}
+
+.cadastrar .pacienteForm .informacoes label[for="telefone"] {
+    grid-area: telefone;
+}
+.cadastrar .pacienteForm .informacoes input#telefone {
+    grid-area: telefone;
+    margin-top: 20px;
+}
+
+.cadastrar .pacienteForm .informacoes label[for="cpf"] {
+    grid-area: cpf;
+}
+.cadastrar .pacienteForm .informacoes input#cpf {
+    grid-area: cpf;
+    margin-top: 20px;
+}
+
+.cadastrar .pacienteForm .informacoes label[for="email"] {
+    grid-area: email;
+}
+.cadastrar .pacienteForm .informacoes input#email {
+    grid-area: email;
+    margin-top: 20px;
+}
+
+/* Estilo para inputs */
+.cadastrar .pacienteForm .informacoes input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.cadastrar .btnbasic{
+    gap: 28px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.cadastrar .btnbasic button{
+    border-radius: 9px;
+    font-family: 'Poppins', sans-serif;
+    width: 161px;
+    height: 54px;
+    font-size: 27px;
+}
+
+.cadastrar .btnbasic #cadastrar{
+    background-color: #3CB2ED ;
+    color: #fff;
+    border: none;
+}
+
+.cadastrar .btnbasic #limpar{
+    background-color: #fff ;
+    color: #3CB2ED;
+    border: 1;
+    border-color: #3CB2ED;
+}
+@media (max-width:360px){
+    .cabecalho > h1{
+        font-weight: 400;
+        font-size: 26px;
+        border: 2px solid #fff;
+       justify-content: flex-end;
+    }
+
+    .cabecalho > img{
+        width: 20px;
+        height: 20px;
+        margin-top: -20px;
+        margin-right: -18px;
+    }
+    
+    .cadastrar > h3{
+        font-size: 18px;
+        font-weight: 400;
+        justify-content: center;
+    }
+    .cadastrar .pacienteForm{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cadastrar .pacienteForm .informacoes{
+        display: grid;
+        grid-template-areas:
+            "nome"
+            "telefone"
+            "cpf"
+            "email"; /* Define duas linhas e duas colunas */
+        grid-template-columns: 1fr; /* Colunas de largura igual */
+        gap: 10px 30px; /* Espaço entre linhas e colunas */
+        width: 100%;
+        height: auto;
+        font-weight: 300;
+        font-size: 20px;
+        padding: 10px;
+    }
+    
+    .cadastrar .btnbasic {
+        display: flex;
+        justify-content: space-between; /* Coloca os botões lado a lado */
+        gap: 15px; /* Espaço entre os botões */
+    }
+    
+    .cadastrar .btnbasic button {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Centraliza os botões verticalmente */
+        font-size: 14px;
+        padding: 10px;
+        width: 48%; /* Define que ambos os botões terão 48% da largura, deixando 4% de espaço entre eles */
+        box-sizing: border-box; /* Para garantir que o padding não ultrapasse a largura */
+    }
+    
+}
+
+

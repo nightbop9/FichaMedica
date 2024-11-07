@@ -33,8 +33,8 @@ import jakarta.validation.Valid;
 @RequestMapping("paciente")
 public class FichamedController {
 
-	//private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
-	private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\imgs\\";
+	private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
+	//private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\imgs\\";
 
 	@Autowired
 	FichamedRepository repository;
@@ -58,16 +58,6 @@ public class FichamedController {
 			@RequestParam("file") MultipartFile arquivo) {
 		FichamedModel paciente = new FichamedModel(user);
 	
-		if (repository.existsByCpf(paciente.getCpf())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já cadastrado.");
-		}
-		if (repository.existsByEmail(paciente.getEmail())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já cadastrado.");
-		}
-		if (repository.existsByTelefone(paciente.getTelefone())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Número já cadastrado.");
-		}
-		
 		repository.save(paciente);
 
 		try {

@@ -29,8 +29,8 @@ public class FichamedModel {
     public FichamedModel(FichamedDTO paciente) {
 		this.id = paciente.id();
         this.nome = paciente.nome();
-        this.email = paciente.email();
         this.telefone = paciente.telefone();
+        this.email = paciente.email();
         this.cpf = paciente.cpf();
         this.nomeImagem = paciente.nomeImagem();
     }
