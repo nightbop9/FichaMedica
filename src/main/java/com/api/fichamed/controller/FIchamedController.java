@@ -1,5 +1,6 @@
 package com.api.fichamed.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,35 +34,68 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("paciente")
 public class FichamedController {
-
-	private static String caminhoImagens = "C:\\Users\\teixe\\Documents\\imgs\\";
-	//private static String caminhoImagens = "C:\\Users\\SEDUC DEST1\\Documents\\imgs\\";
+	
+	
+	private final String caminhoImagens = "src/main/resources/static/uploads/";
+	private final String caminhoImagemOrigem = "src/main/resources/static/images/user.png";
 
 	@Autowired
 	FichamedRepository repository;
 
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
+	@GetMapping
+    public String exibirIndex() {
+        return "index"; // O Spring Boot vai procurar pelo arquivo src/main/resources/templates/index.html
+    }
+	
 	@GetMapping("/listar")
+	@ResponseBody
 	public List<FichamedModel> listarPacientes() {
 		return repository.findAll();
 	}
+
+//	@GetMapping("/listar")
+//	public String listarPacientes(Model model) {
+//        model.addAttribute("pacientes", repository.findAll());
+//        return "index"; 
+//    }
+    
+
 	@GetMapping("/listar/{id}")
+	@ResponseBody
 	public ResponseEntity<FichamedModel> listarUm(@PathVariable Long id) {
 		return repository.findById(id).map(ResponseEntity::ok).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado com ID: " + id));
 	}
 
 	@PostMapping("/cadastrar")
+	@ResponseBody
 	public ResponseEntity<?> cadastrar(@Valid FichamedDTO user, BindingResult result,
 			@RequestParam("file") MultipartFile arquivo) {
 		FichamedModel paciente = new FichamedModel(user);
-	
+
 		repository.save(paciente);
 
 		try {
+			
+			File pasta = new File(caminhoImagens);
+			if(!pasta.exists()) {
+				pasta.mkdir();
+			}
+			
+			File destino = new File(caminhoImagens + "user.png");
+
+			if(!destino.exists()){
+				try{
+					Path origemPath = Paths.get(caminhoImagemOrigem);
+					
+					Files.copy(origemPath, destino.toPath());
+					System.out.println("Imagem padrão de usuário copiada para: " + destino.getPath());
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.err.println("Erro ao copiar o arquivo: " + e.getMessage());
+				}
+			}
+			
 			if(!arquivo.isEmpty()) {
 				byte[] bytes = arquivo.getBytes();
 				Path caminho = Paths.get(caminhoImagens+String.valueOf(paciente.getId())+arquivo.getOriginalFilename());
@@ -83,6 +118,7 @@ public class FichamedController {
 	}
 
 	@PutMapping("/atualizar/{id}")
+	@ResponseBody
 	public ResponseEntity<?> atualizar(@RequestBody FichamedDTO user, @PathVariable Long id) {
 		FichamedModel paciente = repository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -108,6 +144,7 @@ public class FichamedController {
 	}
 
 	@DeleteMapping("/deletar/{id}")
+	@ResponseBody
 	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
 			repository.findById(id).orElseThrow(

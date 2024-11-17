@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/modalexcluir.css">
+    <link rel="stylesheet" href="/css/modalatualizar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet" />
+    <title>Ficha Medica</title>
+</head>
+
+<body>
+    <script>
+        async function carregarPacientes() {
+            try {
+                const response = await fetch('/paciente/listar');
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar os dados');
+                }
+                const pacientes = await response.json();
+
+                const tabela = document.querySelector('.tabela .tbl tbody');
+                tabela.innerHTML = '';
+
+                // preenche a tabela com os dados de cada paciente
+                pacientes.forEach(paciente => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="checkbox" class="checkbox" value="${paciente.id}"></td>
+                        <td>
+                            <div class="botoesin">
+                                <button type="button" class="btneditarin" data-id="${paciente.id}">
+                                    <img src="/images/editar.svg" alt="Editar">
+                                </button>
+                                <button type="button" class="btndeletarin" data-id="${paciente.id}">
+                                    <img src="/images/lixeira.svg" alt="Deletar">
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <img src="${paciente.nomeImagem ? '/uploads/' + paciente.nomeImagem : '/uploads/user.png'}" 
+     						alt="Foto do Paciente" style="width: 50px; height: 50px; border-radius: 5px">
+                        </td>
+                        <td>${paciente.id}</td>
+                        <td>${paciente.nome}</td>
+                        <td>${paciente.email}</td>
+                        <td>${paciente.telefone}</td>
+                        <td>${paciente.cpf}</td>
+                    `;
+                    tr.dataset.nome = paciente.nome.toLowerCase();
+                    tabela.appendChild(tr);
+                });
+                const inputPesquisa = document.querySelector('input[type="search"]');
+                inputPesquisa.addEventListener('input', function () {
+                    const termoBusca = inputPesquisa.value.toLowerCase(); // Obtém o termo de pesquisa em minúsculo
+                    const pacientesNaTabela = tabela.querySelectorAll('tr'); // Seleciona todas as linhas da tabela
+
+                    pacientesNaTabela.forEach(linha => {
+                        const nomePaciente = linha.dataset.nome; // Obtém o nome do paciente armazenado
+
+                        if (nomePaciente.includes(termoBusca)) {
+                            linha.style.display = '';
+                        } else {
+                            linha.style.display = 'none';
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Erro ao carregar os dados:', error);
+            }
+        }
+
+        window.onload = carregarPacientes;
+    </script>
+
+    <div class="container">
+        <header class="cabecalho">
+            <img src="/images/logo.svg" alt="" />
+            <h1>Ficha Médica</h1>
+        </header>
+
+        <div class="cadastrar">
+            <h3>Criar Nova Ficha</h3>
+            <form id="registerForm" class="pacienteForm" action="paciente/cadastrar" method="POST"
+                enctype="multipart/form-data">
+                <div class="preencher">
+                    <div class="img">
+                        <input type="file" id="fileInput" name="file" hidden />
+                        <label for="fileInput" class="file-label">
+                            <img id="previewImage" src="/images/imgperfil.svg" alt="Imagem de perfil"
+                                style="width: 100px; height: 100px; border-radius: 5px;">
+                        </label>
+                        <p>Adicionar Imagem</p>
+                    </div>
+
+                    <div class="informacoes">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required />
+
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" required />
+
+                        <label for="cpf">CPF:</label>
+                        <input type="number" id="cpf" name="cpf" required />
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" />
+                    </div>
+                </div>
+
+                <div class="btnbasic">
+                    <button type="submit" id="cadastrar">Cadastrar</button>
+                    <button type="reset" id="limpar">Limpar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="exibir">
+            <div class="funcionalidades">
+                <form class="buscar">
+                    <div class="input-container">
+                        <input type="search" placeholder="Pesquisar Fichamento:">
+                        <button type="submit">
+                            <img src="/images/pesquisar.svg" alt="">
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="botoes">
+                <button type="submit" class="btneditar">
+                    <img src="/images/editar.svg" alt="">
+                </button>
+                <button type="submit" class="btndeletar">
+                    <img src="/images/lixeira.svg" alt="">
+                </button>
+            </div>
+
+            <div id="modalConfirmacao" class="modal">
+                <div class="modal-content">
+                    <h2>Confirmar Exclusão</h2>
+                    <p>Tem certeza de que deseja excluir este registro?</p>
+                    <button id="confirmarExcluir" class="btn-confirmar">Excluir</button>
+                    <button id="cancelarExcluir" class="btn-cancelar">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabela">
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Ações</th>
+                        <th>Foto</th>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>CPF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- dados dos pacientes serão preenchidos aqui via js -->
+                </tbody>
+            </table>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const modal = document.getElementById('modalConfirmacao');
+                    const confirmarExcluir = document.getElementById('confirmarExcluir');
+                    const cancelarExcluir = document.getElementById('cancelarExcluir');
+                    let pacienteIdParaExcluir = null;
+
+                    // Função para abrir o modal de confirmação
+                    function abrirModal(id) {
+                        pacienteIdParaExcluir = id; // Armazena o ID do paciente a ser excluído
+                        modal.style.display = 'block';
+                    }
+
+                    // Função para fechar o modal
+                    function fecharModal() {
+                        modal.style.display = 'none';
+                        pacienteIdParaExcluir = null;
+                    }
+
+                    // Evento de clique para confirmar exclusão
+                    confirmarExcluir.addEventListener('click', async () => {
+                        if (pacienteIdParaExcluir) {
+                            try {
+                                const response = await fetch(`/paciente/deletar/${pacienteIdParaExcluir}`, {
+                                    method: 'DELETE'
+                                });
+                                if (response.ok) {
+                                    alert('Registro excluído com sucesso');
+                                    carregarPacientes(); // Atualiza a tabela após a exclusão
+                                } else {
+                                    alert('Erro ao excluir o registro');
+                                }
+                            } catch (error) {
+                                console.error('Erro:', error);
+                            } finally {
+                                fecharModal();
+                            }
+                        }
+                    });
+
+                    // evento de clique para cancelar exclusão
+                    cancelarExcluir.addEventListener('click', fecharModal);
+
+                    // detecta todos os botões de excluir e adiciona o evento de abrir modal
+                    document.addEventListener('click', (event) => {
+                        if (event.target.closest('.btndeletarin')) {
+                            const pacienteId = event.target.closest('.btndeletarin').getAttribute('data-id');
+                            abrirModal(pacienteId);
+                        }
+                    });
+                });
+            </script>
+        </div>
+
+        <footer class="rodape">
+            <div class="info">
+                <p>Ajuda e suporte.</p>
+                <p>Contato.</p>
+                <p>Sobre nós.</p>
+            </div>
+        </footer>
+
+    </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById("fileInput");
+        const resetButton = document.getElementById("limpar");
+        const preview = document.getElementById("previewImage");
+
+        document.getElementById("fileInput").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            const resetButton = document.getElementById("limpar");
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        resetButton.addEventListener("click", function () {
+            preview.src = "images/imgperfil.svg";
+        });
+    </script>
+</body>
+
+</html>

@@ -1,251 +1,481 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    width: 100%;
-    height: 100vh;
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10% auto;
-    font-family: 'Poppins',sans-serif;
-    width: 100%;
-    height: auto;
-    font-weight: 100;
-    flex-wrap: wrap;
+body {
+  width: 100%;
+  height: 100vh;
 }
 
-
-.cabecalho{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 20px
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10% auto;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  height: auto;
+  font-weight: 100;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.cabecalho > h1{
-    font-weight: 500;
-    font-size: 60px;
-    color: #7E7A7A;
-}
-.cabecalho > img{
-    width: 25px;
-    height: 25px;
-    margin-top: -25px;
-    margin-right: -15px;
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
 }
 
-
-
-
-
-.cadastrar{
-    display: flex;
-    align-items: center;
-    width: 70%;
-    flex-wrap: wrap;
-    margin: 5% auto;
+.cabecalho > h1 {
+  font-weight: 500;
+  font-size: 60px;
+  color: #7e7a7a;
+}
+.cabecalho > img {
+  width: 25px;
+  height: 25px;
+  margin-top: -25px;
+  margin-right: -15px;
 }
 
-.cadastrar h3{
-    display: flex;
-    justify-content: flex-start;
-    font-weight: 300;
-    width: 100%;
-    color: #7E7A7A;
+.cadastrar {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  flex-wrap: wrap;
+  margin: 5% auto;
+}
+
+.cadastrar h3 {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 300;
+  width: 100%;
+  color: #7e7a7a;
 }
 .cadastrar .pacienteForm {
-    width: 100%;
+  width: 100%;
 }
 
-.cadastrar .pacienteForm .preencher{
-    color: #7E7A7A;
-    width: 100%;
-    height: auto;
-    background-color: #F4F7FB;
-    display: flex;
-    border-radius: 12px;
-    justify-content: space-around;
-    align-items: center;
-    padding: 40px;
-    flex-wrap: wrap;
+.cadastrar .pacienteForm .preencher {
+  color: #7e7a7a;
+  width: 100%;
+  height: auto;
+  background-color: #f4f7fb;
+  display: flex;
+  border-radius: 12px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px;
+  flex-wrap: wrap;
 }
 
-
-.cadastrar .pacienteForm .img{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.cadastrar .pacienteForm .img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cadastrar .pacienteForm p{
-    font-weight: 300;
+.cadastrar .pacienteForm p {
+  font-weight: 300;
 }
 .file-label {
-    display: inline-block;
-    width: 100px; /* Ajuste o tamanho conforme necessário */
-    height: 100px;
-    background-image: url('../images/imgperfil.svg'); /* Caminho para a imagem */
-    background-size: cover;
-    cursor: pointer;
+  display: inline-block;
+  width: 100px; 
+  height: 100px;
+  background-image: url("../images/imgperfil.svg"); 
+  background-size: cover;
+  cursor: pointer;
 }
 
-.cadastrar .pacienteForm .informacoes{
-    display: grid;
-    grid-template-areas:
-        "nome telefone"
-        "cpf email"; /* Define duas linhas e duas colunas */
-    grid-template-columns: 1fr 1fr; /* Colunas de largura igual */
-    gap: 10px 30px; /* Espaço entre linhas e colunas */
-    width: 500px;
-    height: auto;
-    font-weight: 300;
-    font-size: 20px;
-    padding: 10px;
+.cadastrar .pacienteForm .informacoes {
+  display: grid;
+  grid-template-areas:
+    "nome telefone"
+    "cpf email"; /* define duas linhas e duas colunas */
+  grid-template-columns: 1fr 1fr; /* colunas de largura igual */
+  gap: 10px 30px; /* espaço entre linhas e colunas */
+  width: 500px;
+  height: auto;
+  font-weight: 300;
+  font-size: 20px;
+  padding: 10px;
 }
 
 .cadastrar .pacienteForm .informacoes label {
-    font-size: 15px;
-    color: #7E7A7A;
-    font-weight: 400;
-    margin-bottom: 6px; /* Espaço entre o label e o input */
-    display: block;
+  font-size: 15px;
+  color: #7e7a7a;
+  font-weight: 400;
+  margin-bottom: 6px; /* espaço entre o label e o input */
+  display: block;
 }
 
 .cadastrar .pacienteForm .informacoes label[for="nome"] {
-    grid-area: nome;
+  grid-area: nome;
 }
 .cadastrar .pacienteForm .informacoes input#nome {
-    grid-area: nome;
-    margin-top: 20px; /* Para criar espaçamento entre label e input */
+  grid-area: nome;
+  margin-top: 20px; /*  criar espaçamento entre label e input */
 }
 
 .cadastrar .pacienteForm .informacoes label[for="telefone"] {
-    grid-area: telefone;
+  grid-area: telefone;
 }
 .cadastrar .pacienteForm .informacoes input#telefone {
-    grid-area: telefone;
-    margin-top: 20px;
+  grid-area: telefone;
+  margin-top: 20px;
 }
 
 .cadastrar .pacienteForm .informacoes label[for="cpf"] {
-    grid-area: cpf;
+  grid-area: cpf;
 }
 .cadastrar .pacienteForm .informacoes input#cpf {
-    grid-area: cpf;
-    margin-top: 20px;
+  grid-area: cpf;
+  margin-top: 20px;
 }
 
 .cadastrar .pacienteForm .informacoes label[for="email"] {
-    grid-area: email;
+  grid-area: email;
 }
 .cadastrar .pacienteForm .informacoes input#email {
-    grid-area: email;
-    margin-top: 20px;
+  grid-area: email;
+  margin-top: 20px;
 }
 
 /* Estilo para inputs */
 .cadastrar .pacienteForm .informacoes input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 16px;
-    width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
 }
 
-.cadastrar .btnbasic{
-    gap: 28px;
-    display: flex;
-    width: 100%;
+.cadastrar .btnbasic {
+  gap: 28px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.cadastrar .btnbasic button {
+  border-radius: 9px;
+  font-family: "Poppins", sans-serif;
+  width: 161px;
+  height: 54px;
+  font-size: 27px;
+}
+
+.cadastrar .btnbasic #cadastrar {
+  background-color: #3cb2ed;
+  color: #fff;
+  border: none;
+}
+
+.cadastrar .btnbasic #limpar {
+  background-color: #fff;
+  color: #3cb2ed;
+  border: 1;
+  border-color: #3cb2ed;
+}
+
+/* container acima da tabela */
+.container .exibir {
+  width: 80%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Pesquisa */
+.funcionalidades {
+  width: 60%;
+}
+
+.buscar {
+  height: 70px;
+}
+
+.buscar .input-container {
+  border-radius: 9px;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  background: #f4f7fb;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.buscar .input-container input {
+  border: none;
+  background: none;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  width: 90%;
+}
+
+.buscar .input-container button {
+  border: none;
+  background: none;
+}
+
+/* botoes acima da tabela */
+
+.botoes button img {
+  width: 40px;
+  height: 40px;
+}
+
+.btneditar {
+  border-radius: 15px;
+  border: 1px solid #3cb2ed;
+  background: none;
+  width: 70px;
+  height: 70px;
+}
+
+.botoes .btndeletar {
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  border: none;
+  background: #3cb2ed;
+}
+
+.btneditarin img {
+  border-radius: 10px;
+  border: 1px solid #3cb2ed;
+  background: none;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+}
+
+.btndeletarin img {
+  border-radius: 10px;
+  border: none;
+  background: #3cb2ed;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+}
+
+.botoesin {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  border: none;
+  gap: 2px;
+}
+.botoesin button {
+  border: none;
+}
+/* tabela */
+
+.tabela {
+  border-radius: 10px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  border: none;
+  background: #f4f7fb;
+  margin: 0.5% auto;
+  height: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  width: 100%;
+  display: table;
+  max-height: 600px;
+}
+
+.tbl th,
+.tbl td {
+  padding: 2px; /* espaço interno em cada célula */
+  text-align: center;
+  width: calc(100% / 8); /* dividindo igualmente entre as colunas */
+  max-width: 100px;
+  word-wrap: break-word;
+}
+
+.tbl td {
+  font-weight: 300;
+}
+tr th {
+  padding: 20px;
+  width: 10px;
+  text-align: center;
+}
+
+td input {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.rodape {
+  margin: 10% 0 0 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #dbe8f3;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.rodape .info {
+  display: flex;
+  flex-wrap: nowrap;
+  font-weight: 300;
+  flex-direction: column;
+}
+
+@media (max-width: 360px) {
+  .cabecalho > h1 {
+    font-weight: 400;
+    font-size: 26px;
+    border: 2px solid #fff;
     justify-content: flex-end;
-    padding-top: 10px;
+  }
+
+  .cabecalho > img {
+    width: 20px;
+    height: 20px;
+    margin-top: -20px;
+    margin-right: -18px;
+  }
+
+  .cadastrar > h3 {
+    font-size: 18px;
+    font-weight: 400;
+    justify-content: center;
+  }
+  .cadastrar .pacienteForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cadastrar .pacienteForm .informacoes {
+    display: grid;
+    grid-template-areas:
+      "nome"
+      "telefone"
+      "cpf"
+      "email"; /* define duas linhas e duas colunas */
+    grid-template-columns: 1fr; /* dolunas de largura igual */
+    gap: 10px 30px; /* espaço entre linhas e colunas */
+    width: 100%;
+    height: auto;
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .cadastrar .btnbasic {
+    display: flex;
+    justify-content: space-between; /* doloca os botões lado a lado */
+    gap: 15px; /* espaço entre os botões */
+  }
+
+  .cadastrar .btnbasic button {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* dentraliza os botões verticalmente */
+    font-size: 14px;
+    padding: 10px;
+    width: 48%; /* ambos os botões com 48% da largura, 4% de espaço entre eles */
+    box-sizing: border-box; /* garantir que o padding não ultrapasse a largura */
+  }
+
+  /* container acima da tabela */
+
+  /* Pesquisa */
+  .funcionalidades {
+    width: 60%;
+  }
+
+  .buscar {
+    height: 50px;
+  }
+
+  .buscar .input-container {
+    height: 50px;
+  }
+
+  .buscar .input-container input {
+    font-size: 18.5px;
+    width: 90%;
+  }
+
+  .buscar .input-container button img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .buscar .input-container {
+    display: flex;
+    align-items: center;
+  }
+
+  /* botoes acima da tabela */
+
+  .botoes button img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .botoes .btneditar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .botoes .btndeletar {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* tabela */
+  .tabela {
+    margin: 3% auto;
+    overflow-x: auto;
+    width: 80%;
+    height: auto;
+    overflow-x: auto;
+  }
+
+  .tbl {
+    display: table-cell;
+    width: 100%;
+  }
+
+  .tbl th,
+  .tbl td {
+    padding: 10px;
+  }
+
+  .botoesin button,
+  .botoesin button img {
+    width: 30px;
+    height: 30px;
+  }
+
+  td input {
+    width: 30px;
+    height: 30px;
+  }
 }
-
-.cadastrar .btnbasic button{
-    border-radius: 9px;
-    font-family: 'Poppins', sans-serif;
-    width: 161px;
-    height: 54px;
-    font-size: 27px;
-}
-
-.cadastrar .btnbasic #cadastrar{
-    background-color: #3CB2ED ;
-    color: #fff;
-    border: none;
-}
-
-.cadastrar .btnbasic #limpar{
-    background-color: #fff ;
-    color: #3CB2ED;
-    border: 1;
-    border-color: #3CB2ED;
-}
-@media (max-width:360px){
-    .cabecalho > h1{
-        font-weight: 400;
-        font-size: 26px;
-        border: 2px solid #fff;
-       justify-content: flex-end;
-    }
-
-    .cabecalho > img{
-        width: 20px;
-        height: 20px;
-        margin-top: -20px;
-        margin-right: -18px;
-    }
-    
-    .cadastrar > h3{
-        font-size: 18px;
-        font-weight: 400;
-        justify-content: center;
-    }
-    .cadastrar .pacienteForm{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .cadastrar .pacienteForm .informacoes{
-        display: grid;
-        grid-template-areas:
-            "nome"
-            "telefone"
-            "cpf"
-            "email"; /* Define duas linhas e duas colunas */
-        grid-template-columns: 1fr; /* Colunas de largura igual */
-        gap: 10px 30px; /* Espaço entre linhas e colunas */
-        width: 100%;
-        height: auto;
-        font-weight: 300;
-        font-size: 20px;
-        padding: 10px;
-    }
-    
-    .cadastrar .btnbasic {
-        display: flex;
-        justify-content: space-between; /* Coloca os botões lado a lado */
-        gap: 15px; /* Espaço entre os botões */
-    }
-    
-    .cadastrar .btnbasic button {
-        display: flex;
-        justify-content: center;
-        align-items: center; /* Centraliza os botões verticalmente */
-        font-size: 14px;
-        padding: 10px;
-        width: 48%; /* Define que ambos os botões terão 48% da largura, deixando 4% de espaço entre eles */
-        box-sizing: border-box; /* Para garantir que o padding não ultrapasse a largura */
-    }
-    
-}
-
-

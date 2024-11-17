@@ -1,4 +1,5 @@
 package com.api.fichamed.model;
+
 import com.api.fichamed.dto.FichamedDTO;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,7 @@ public class FichamedModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+  
 	@NotBlank(message = "O campo 'nome' é obrigatório.")
     private String nome;
 	@Column(unique = true)
@@ -24,6 +26,7 @@ public class FichamedModel {
 	@Column(unique = true)
 	@NotBlank(message = "O campo cpf é obrigatório.")
     private String cpf;
+	@Column(name = "nome_imagem")
 	private String nomeImagem;
 	public FichamedModel(){}
     public FichamedModel(FichamedDTO paciente) {
@@ -81,6 +84,5 @@ public class FichamedModel {
 	public void setNomeImagem(String nomeImagem) {
 		this.nomeImagem = nomeImagem;
 	}
-	
     
 }
