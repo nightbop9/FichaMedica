@@ -222,6 +222,35 @@
                     });
                 });
             </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const modal = document.getElementById('atualizarConfirmacao');
+                    const confirmarAtualizar = document.getElementById('confirmarAtualizar');
+                    const cancelarAtualizar = document.getElementById('cancelarAtualizar');
+                    let pacienteIdParaAtualizar = null;
+
+                    // Função para abrir o modal de confirmação
+                    function abrirModalAtualizar(id) {
+                        pacienteIdParaAtualizar = id; // Armazena o ID do paciente a ser atualizado
+                        modal.style.display = 'block';
+                    }
+                    // Função para fechar o modal
+                    function fecharModalAtualizar(id){
+                        modal.style.display = 'none';
+                        pacienteIdParaAtualizar = null;
+                    }
+
+                    // Evento de clique para confirmar atualização
+                    confirmarAtualizar.addEventListener('click', async () => {
+                        if (pacienteIdParaAtualizar) {
+                            try {
+                                const response = await fetch(`/paciente/atualizar/${pacienteIdParaAtualizar}`, {
+                                    method: 'PUT',
+                                    body: new FormData(document.getElementById('updateForm'))
+                                });
+                }
+
+            </script>
         </div>
 
         <footer class="rodape">
@@ -232,6 +261,42 @@
             </div>
         </footer>
 
+        <div class="atualizar" id="atualizarConfirmacao">
+            <div class="modal-content-atualizar">
+                <h3>Atualizar Ficha</h3>
+                <form id="updateForm" class="pacienteUpdateForm" action="paciente/atualizar/{id}" method="PUT"
+                    enctype="multipart/form-data">
+                    <div class="preencherUpdate">
+                        <div class="img">
+                            <input type="file" id="fileInputUpdate" name="fileUpdate" hidden />
+                            <label for="fileInput" class="file-label">
+                                <img id="previewImage" src="/images/imgperfil.svg" alt="Imagem de perfil"
+                                    style="width: 100px; height: 100px; border-radius: 5px;">
+                            </label>
+                            <p>Atualizar Imagem</p>
+                        </div>
+                        <div class="informacoesUpdate">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nomeUpdate" name="nomeUpdate" required />
+                            
+                            <label for="telefoneUpdate">Telefone:</label>
+                            <input type="tel" id="telefoneUpdate" name="telefoneUpdate" required />
+                            
+                            <label for="cpf">CPF:</label>
+                            <input type="number" id="cpfUpdate" name="cpfUpdate" required />
+                            
+                            <label for="email">Email:</label>
+                            <input type="email" id="emailUpdate" name="emailUpdate" />
+                        </div>
+                    </div>
+                    
+                    <div class="btnbasicUpdate">
+                        <button type="submit" id="atualizarUpdate">Atualizar</button>
+                        <button type="reset" id="limparUpdate">Limpar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     </div>
 
