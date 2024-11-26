@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -178,6 +177,20 @@ public class FichamedController {
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Algum campo já existe no banco de dados.");
 		}
+	}
+	
+	@DeleteMapping("/deletar/{id}")
+	@ResponseBody
+	public ResponseEntity<?> deletar(@PathVariable Long id) {
+		try {
+			repository.findById(id).orElseThrow(
+					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado com ID: " + id));
+			repository.deleteById(id);
+			return ResponseEntity.status(200).body("Paciente deletado com sucesso.");
+		} catch (ResponseStatusException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getReason());
+		}
+
 	}
 
 }
