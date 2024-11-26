@@ -119,41 +119,65 @@ public class FichamedController {
 
 	@PutMapping("/atualizar/{id}")
 	@ResponseBody
-	public ResponseEntity<?> atualizar(@RequestBody FichamedDTO user, @PathVariable Long id) {
+	public ResponseEntity<?> atualizar(
+		@PathVariable Long id,
+		@Valid FichamedDTO user,
+		BindingResult result,
+		@RequestParam(value = "file", required = false) MultipartFile arquivo) {
+
+		// verificar se o paciente existe
 		FichamedModel paciente = repository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Erro ao atualizar: paciente não encontrado com ID: " + id));
-		if (repository.existsByCpf(paciente.getCpf())) {
+
+		// verificar conflitos de dados
+		if (repository.existsByCpfAndIdNot(user.cpf(), id)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já cadastrado.");
 		}
-		if (repository.existsByEmail(paciente.getEmail())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já cadastrado.");
+		if (repository.existsByEmailAndIdNot(user.email(), id)) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("E-mail já cadastrado.");
 		}
-		if (repository.existsByTelefone(paciente.getTelefone())) {
+		if (repository.existsByTelefoneAndIdNot(user.telefone(), id)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Número já cadastrado.");
 		}
-		
 
+	// setando novos dados
 		paciente.setNome(user.nome());
 		paciente.setEmail(user.email());
 		paciente.setTelefone(user.telefone());
 		paciente.setCpf(user.cpf());
-		paciente.setNomeImagem(user.nomeImagem());
-		repository.save(paciente);
-		return ResponseEntity.status(200).body("Paciente atualizado com sucesso.");
-	}
 
-	@DeleteMapping("/deletar/{id}")
-	@ResponseBody
-	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
-			repository.findById(id).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado com ID: " + id));
-			repository.deleteById(id);
-			return ResponseEntity.status(200).body("Paciente deletado com sucesso.");
-		} catch (ResponseStatusException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getReason());
+			// gerenciar a pasta de imagens
+			File pasta = new File(caminhoImagens);
+			if (!pasta.exists()) {
+				pasta.mkdir();
+			}
+
+			//caso receba arquivo, salvar com o id do paciente
+			if (arquivo != null && !arquivo.isEmpty()) {
+				byte[] bytes = arquivo.getBytes();
+				String nomeArquivo = String.valueOf(paciente.getId()) + arquivo.getOriginalFilename();
+				Path caminho = Paths.get(caminhoImagens + nomeArquivo);
+				Files.write(caminho, bytes);
+
+				paciente.setNomeImagem(nomeArquivo);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
 		}
 
+		// salvar   alterações no banco
+		try {
+			repository.save(paciente);
+			return ResponseEntity.status(HttpStatus.OK).body("Paciente atualizado com sucesso.");
+		} catch (ResponseStatusException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getReason());
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Algum campo já existe no banco de dados.");
+		}
 	}
+
 }

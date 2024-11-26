@@ -58,11 +58,11 @@
                 });
                 const inputPesquisa = document.querySelector('input[type="search"]');
                 inputPesquisa.addEventListener('input', function () {
-                    const termoBusca = inputPesquisa.value.toLowerCase(); // Obtém o termo de pesquisa em minúsculo
-                    const pacientesNaTabela = tabela.querySelectorAll('tr'); // Seleciona todas as linhas da tabela
+                    const termoBusca = inputPesquisa.value.toLowerCase(); // sbtém o termo de pesquisa em minúsculo
+                    const pacientesNaTabela = tabela.querySelectorAll('tr'); // seleciona todas as linhas da tabela
 
                     pacientesNaTabela.forEach(linha => {
-                        const nomePaciente = linha.dataset.nome; // Obtém o nome do paciente armazenado
+                        const nomePaciente = linha.dataset.nome; // pega o nome do paciente armazenado
 
                         if (nomePaciente.includes(termoBusca)) {
                             linha.style.display = '';
@@ -177,19 +177,19 @@
                     const cancelarExcluir = document.getElementById('cancelarExcluir');
                     let pacienteIdParaExcluir = null;
 
-                    // Função para abrir o modal de confirmação
+                   
                     function abrirModal(id) {
                         pacienteIdParaExcluir = id; // Armazena o ID do paciente a ser excluído
                         modal.style.display = 'block';
                     }
 
-                    // Função para fechar o modal
+                   
                     function fecharModal() {
                         modal.style.display = 'none';
                         pacienteIdParaExcluir = null;
                     }
 
-                    // Evento de clique para confirmar exclusão
+                    // evento  clique para confirmar exclusão
                     confirmarExcluir.addEventListener('click', async () => {
                         if (pacienteIdParaExcluir) {
                             try {
@@ -222,35 +222,7 @@
                     });
                 });
             </script>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const modal = document.getElementById('atualizarConfirmacao');
-                    const confirmarAtualizar = document.getElementById('confirmarAtualizar');
-                    const cancelarAtualizar = document.getElementById('cancelarAtualizar');
-                    let pacienteIdParaAtualizar = null;
-
-                    // Função para abrir o modal de confirmação
-                    function abrirModalAtualizar(id) {
-                        pacienteIdParaAtualizar = id; // Armazena o ID do paciente a ser atualizado
-                        modal.style.display = 'block';
-                    }
-                    // Função para fechar o modal
-                    function fecharModalAtualizar(id){
-                        modal.style.display = 'none';
-                        pacienteIdParaAtualizar = null;
-                    }
-
-                    // Evento de clique para confirmar atualização
-                    confirmarAtualizar.addEventListener('click', async () => {
-                        if (pacienteIdParaAtualizar) {
-                            try {
-                                const response = await fetch(`/paciente/atualizar/${pacienteIdParaAtualizar}`, {
-                                    method: 'PUT',
-                                    body: new FormData(document.getElementById('updateForm'))
-                                });
-                }
-
-            </script>
+           
         </div>
 
         <footer class="rodape">
@@ -264,11 +236,11 @@
         <div class="atualizar" id="atualizarConfirmacao">
             <div class="modal-content-atualizar">
                 <h3>Atualizar Ficha</h3>
-                <form id="updateForm" class="pacienteUpdateForm" action="paciente/atualizar/{id}" method="PUT"
-                    enctype="multipart/form-data">
+                <form id="updateForm" class="pacienteUpdateForm" action="/paciente/atualizar/${paciente.id}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="PUT"/>
                     <div class="preencherUpdate">
                         <div class="img">
-                            <input type="file" id="fileInputUpdate" name="fileUpdate" hidden />
+                            <input type="file" id="fileInputUpdate" name="fileInputUpdate" hidden />
                             <label for="fileInput" class="file-label">
                                 <img id="previewImage" src="/images/imgperfil.svg" alt="Imagem de perfil"
                                     style="width: 100px; height: 100px; border-radius: 5px;">
@@ -277,28 +249,118 @@
                         </div>
                         <div class="informacoesUpdate">
                             <label for="nome">Nome:</label>
-                            <input type="text" id="nomeUpdate" name="nomeUpdate" required />
-                            
+                            <input type="text" id="nomeUpdate" name="nome" required />
+
                             <label for="telefoneUpdate">Telefone:</label>
-                            <input type="tel" id="telefoneUpdate" name="telefoneUpdate" required />
-                            
+                            <input type="tel" id="telefoneUpdate" name="telefone" required />
+
                             <label for="cpf">CPF:</label>
-                            <input type="number" id="cpfUpdate" name="cpfUpdate" required />
-                            
+                            <input type="number" id="cpfUpdate" name="cpf" required />
+
                             <label for="email">Email:</label>
-                            <input type="email" id="emailUpdate" name="emailUpdate" />
+                            <input type="email" id="emailUpdate" name="email" />
                         </div>
                     </div>
-                    
+
                     <div class="btnbasicUpdate">
                         <button type="submit" id="atualizarUpdate">Atualizar</button>
-                        <button type="reset" id="limparUpdate">Limpar</button>
+                        <button type="reset" id="cancelarUpdate">Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     </div>
+    
+    <script>
+	    document.addEventListener('DOMContentLoaded', () => {
+	    const modal = document.getElementById('atualizarConfirmacao');
+	    let pacienteIdParaAtualizar = null;
+	
+	    function abrirModal(id) {
+	     	console.log(`abrindo modal para o paciente com ID: ${id}`); // Verifique o valor
+	        pacienteIdParaAtualizar = id;
+	        modal.style.display = 'block';
+	
+	        // Define o ID no atributo 'action' do formulário
+	        const form = document.getElementById('updateForm');
+	        form.action = `/paciente/atualizar/${pacienteIdParaAtualizar}`;
+	    }
+	
+	    function fecharModal() {
+	        modal.style.display = 'none';
+	        pacienteIdParaAtualizar = null;
+	    }
+	
+	    // detecta todos os botões de editar e adiciona o evento de abrir modal
+	    document.addEventListener('click', (event) => {
+	        if (event.target.closest('.btneditarin')) {
+	            const pacienteId = event.target.closest('.btneditarin').getAttribute('data-id');
+	            abrirModal(pacienteId);
+	        }
+	    });
+	
+	    document.getElementById('cancelarUpdate').addEventListener('click', fecharModal);
+	});
+</script>
+    
+    
+<!-- 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('atualizarConfirmacao');
+            const atualizarUpdate = document.getElementById('atualizarUpdate');
+            const limparUpdate = document.getElementById('limparUpdate');
+            let pacienteIdParaAtualizar = null;
+
+           
+            function abrirModal(id) {
+                pacienteIdParaAtualizar = id; /
+                modal.style.display = 'block';
+            }
+
+           
+            function fecharModal() {
+                modal.style.display = 'none';
+                pacienteIdParaAtualizar = null;
+            }
+
+            // evento  clique para confirmar atualização
+		    atualizarUpdate.addEventListener('click', async () => {
+		    if (pacienteIdParaAtualizar) {
+		        const formData = new FormData(document.getElementById('updateForm'));
+		        try {
+		            const response = await fetch(`/paciente/atualizar/${pacienteIdParaAtualizar}`, {
+		                method: 'PUT',
+		                body: formData
+		            });
+		            if (response.ok) {
+		                alert('Registro atualizado com sucesso');
+		                carregarPacientes();
+		            } else {
+		                const error = await response.text();
+		                alert(`Erro ao atualizar: ${error}`);
+		            }
+		        } catch (error) {
+		            console.error('Erro:', error);
+		        } finally {
+		            fecharModal();
+		        }
+		    }
+});
+
+            // evento de clique para cancelar exclusão
+            cancelarUpdate.addEventListener('click', fecharModal);
+
+            // detecta todos os botões de excluir e adiciona o evento de abrir modal
+            document.addEventListener('click', (event) => {
+                if (event.target.closest('.btneditarin')) {
+                    const pacienteId = event.target.closest('.btneditarin').getAttribute('data-id');
+                    abrirModal(pacienteId);
+                }
+            });
+        });
+    </script> -->
 
     <script>
         const fileInput = document.getElementById("fileInput");
