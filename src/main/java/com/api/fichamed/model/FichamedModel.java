@@ -21,6 +21,7 @@ public class FichamedModel {
     private String nome;
 	@Column(unique = true)
 	private String email;
+	@Column(unique = true)
 	@NotBlank(message = "O campo 'telefone' é obrigatório.")
     private String telefone;
 	@Column(unique = true)
