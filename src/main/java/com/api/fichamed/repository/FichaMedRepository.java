@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.api.fichamed.model.FichamedModel;
 
+
 public interface FichamedRepository extends JpaRepository<FichamedModel, Long> {
     //métodos para verificação do post
     boolean existsByEmail(String email);
